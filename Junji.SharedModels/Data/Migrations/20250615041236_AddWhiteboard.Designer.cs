@@ -4,6 +4,7 @@ using Junji.SharedModels.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Junji.SharedModels.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250615041236_AddWhiteboard")]
+    partial class AddWhiteboard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,113 +269,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.Shipment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InvoiceNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MemberAccount")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShipNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TaxIncluded")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Shipments");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.ShipmentCode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code16")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsUsed")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShipmentId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UsedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UsedByAccount")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code16")
-                        .IsUnique();
-
-                    b.HasIndex("ShipmentId");
-
-                    b.ToTable("ShipmentCodes");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.ShipmentProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShipmentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShipmentId");
-
-                    b.ToTable("ShipmentProducts");
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.Whiteboard", b =>
                 {
                     b.Property<int>("Id")
@@ -470,28 +366,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.ShipmentCode", b =>
-                {
-                    b.HasOne("Junji.SharedModels.Models.Shipment", "Shipment")
-                        .WithMany("Codes")
-                        .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shipment");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.ShipmentProduct", b =>
-                {
-                    b.HasOne("Junji.SharedModels.Models.Shipment", "Shipment")
-                        .WithMany("Products")
-                        .HasForeignKey("ShipmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shipment");
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -509,13 +383,6 @@ namespace Junji.SharedModels.Data.Migrations
             modelBuilder.Entity("Junji.SharedModels.Models.MemberLevel", b =>
                 {
                     b.Navigation("Members");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.Shipment", b =>
-                {
-                    b.Navigation("Codes");
-
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

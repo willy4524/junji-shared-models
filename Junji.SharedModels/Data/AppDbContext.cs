@@ -16,7 +16,10 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
         public DbSet<InviteHistory> InviteHistories { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Whiteboard> Whiteboards { get; set; }
+        public DbSet<Shipment> Shipments { get; set; }
+        public DbSet<ShipmentProduct> ShipmentProducts { get; set; }
+        public DbSet<ShipmentCode> ShipmentCodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,6 +50,23 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
                 .Property(p => p.Amount)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<Whiteboard>()
+                .HasIndex(w => w.Type)
+                .IsUnique();
+                
+            modelBuilder.Entity<Shipment>()
+                .HasMany(s => s.Products)
+                .WithOne(p => p.Shipment)
+                .HasForeignKey(p => p.ShipmentId);
+
+            modelBuilder.Entity<Shipment>()
+                .HasMany(s => s.Codes)
+                .WithOne(c => c.Shipment)
+                .HasForeignKey(c => c.ShipmentId);
+
+            modelBuilder.Entity<ShipmentCode>()
+                .HasIndex(c => c.Code16)
+                .IsUnique();
             // 其他 Fluent API 設定可視需要補充
         }
     }
