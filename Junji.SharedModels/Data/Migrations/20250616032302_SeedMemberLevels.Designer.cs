@@ -4,6 +4,7 @@ using Junji.SharedModels.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Junji.SharedModels.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250616032302_SeedMemberLevels")]
+    partial class SeedMemberLevels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,39 +252,6 @@ namespace Junji.SharedModels.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.Permission", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Permissions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "System.FullAccess",
-                            Desc = "超級管理員專用",
-                            Name = "全系統權限"
-                        });
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.PointHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -341,60 +311,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Desc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsSystem")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Desc = "所有功能",
-                            IsSystem = true,
-                            Name = "超級管理員"
-                        });
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.RolePermission", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissions");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 1
-                        });
                 });
 
             modelBuilder.Entity("Junji.SharedModels.Models.Shipment", b =>
@@ -504,100 +420,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.ToTable("ShipmentProducts");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.Staff", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Account")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastLoginAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ResignedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("StaffNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Staffs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Account = "admin",
-                            CreatedAt = new DateTime(2024, 6, 16, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            Department = "管理部",
-                            IsActive = true,
-                            Name = "超級管理員",
-                            PasswordHash = "8c6976e5b5410415bde908bd4dee15dfb16a7a60c6eeaaca1f5c996a453c8c61",
-                            Position = "系統管理員",
-                            StaffNo = "A001"
-                        });
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.StaffRole", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StaffId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("StaffRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            StaffId = 1,
-                            RoleId = 1
-                        });
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.Whiteboard", b =>
                 {
                     b.Property<int>("Id")
@@ -695,25 +517,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.RolePermission", b =>
-                {
-                    b.HasOne("Junji.SharedModels.Models.Permission", "Permission")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Junji.SharedModels.Models.Role", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.ShipmentCode", b =>
                 {
                     b.HasOne("Junji.SharedModels.Models.Shipment", "Shipment")
@@ -736,25 +539,6 @@ namespace Junji.SharedModels.Data.Migrations
                     b.Navigation("Shipment");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.StaffRole", b =>
-                {
-                    b.HasOne("Junji.SharedModels.Models.Role", "Role")
-                        .WithMany("StaffRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Junji.SharedModels.Models.Staff", "Staff")
-                        .WithMany("StaffRoles")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("Staff");
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -774,28 +558,11 @@ namespace Junji.SharedModels.Data.Migrations
                     b.Navigation("Members");
                 });
 
-            modelBuilder.Entity("Junji.SharedModels.Models.Permission", b =>
-                {
-                    b.Navigation("RolePermissions");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.Role", b =>
-                {
-                    b.Navigation("RolePermissions");
-
-                    b.Navigation("StaffRoles");
-                });
-
             modelBuilder.Entity("Junji.SharedModels.Models.Shipment", b =>
                 {
                     b.Navigation("Codes");
 
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Junji.SharedModels.Models.Staff", b =>
-                {
-                    b.Navigation("StaffRoles");
                 });
 #pragma warning restore 612, 618
         }

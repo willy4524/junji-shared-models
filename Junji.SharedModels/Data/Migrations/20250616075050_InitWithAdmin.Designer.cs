@@ -4,6 +4,7 @@ using Junji.SharedModels.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Junji.SharedModels.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250616075050_InitWithAdmin")]
+    partial class InitWithAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -566,7 +569,7 @@ namespace Junji.SharedModels.Data.Migrations
                         {
                             Id = 1,
                             Account = "admin",
-                            CreatedAt = new DateTime(2024, 6, 16, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2025, 6, 16, 15, 50, 49, 805, DateTimeKind.Local).AddTicks(5510),
                             Department = "管理部",
                             IsActive = true,
                             Name = "超級管理員",
