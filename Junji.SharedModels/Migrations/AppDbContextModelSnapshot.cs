@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Junji.SharedModels.Data.Migrations
+namespace Junji.SharedModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -570,7 +570,7 @@ namespace Junji.SharedModels.Data.Migrations
                             Department = "管理部",
                             IsActive = true,
                             Name = "超級管理員",
-                            PasswordHash = "8c6976e5b5410415bde908bd4dee15dfb16a7a60c6eeaaca1f5c996a453c8c61",
+                            PasswordHash = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
                             Position = "系統管理員",
                             StaffNo = "A001"
                         });
