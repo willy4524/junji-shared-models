@@ -28,6 +28,8 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyContact> CompanyContacts { get; set; }
         public DbSet<CompanyDelivery> CompanyDeliveries { get; set; }
+        public DbSet<Inquiry> Inquiries { get; set; }
+        public DbSet<InquiryDetail> InquiryDetails { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -182,6 +184,23 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
                     .HasForeignKey(p => p.CategoryId)
                     .OnDelete(DeleteBehavior.Restrict); // 保護分類被刪時商品還在
             });
+            modelBuilder.Entity<Inquiry>()
+                .HasMany(x => x.Details)
+                .WithOne(d => d.Inquiry)
+                .HasForeignKey(d => d.InquiryId);
+
+            modelBuilder.Entity<InquiryDetail>()
+                .HasOne(d => d.Product)
+                .WithMany()
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Inquiry>()
+                .HasOne(x => x.Company)
+                .WithMany()
+                .HasForeignKey(x => x.CompanyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // 其他 Fluent API 設定可視需要補充
         }
     }
