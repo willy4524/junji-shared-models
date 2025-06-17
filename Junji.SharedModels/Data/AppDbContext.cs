@@ -152,6 +152,36 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
             modelBuilder.Entity<Company>()
                 .HasIndex(x => x.TaxId);
 
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(p => p.Name)
+                    .IsRequired()
+                    .HasMaxLength(120);
+
+                entity.Property(p => p.Code)
+                    .HasMaxLength(50);
+
+                entity.Property(p => p.Spec)
+                    .HasMaxLength(80);
+
+                entity.Property(p => p.Unit)
+                    .HasMaxLength(16);
+
+                entity.Property(p => p.Status)
+                    .HasMaxLength(10)
+                    .IsRequired();
+
+                entity.Property(p => p.Cost)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(p => p.Price)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.HasOne(p => p.Category)
+                    .WithMany(c => c.Products)
+                    .HasForeignKey(p => p.CategoryId)
+                    .OnDelete(DeleteBehavior.Restrict); // 保護分類被刪時商品還在
+            });
             // 其他 Fluent API 設定可視需要補充
         }
     }
