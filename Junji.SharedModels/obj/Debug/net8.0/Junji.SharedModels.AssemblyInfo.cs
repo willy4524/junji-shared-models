@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Junji.SharedModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c31b0da7389a5660faaf4f81c573263367753e72")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e02e0e7df8bf2cd96712b59c0b85e94a4710b34")]
 [assembly: System.Reflection.AssemblyProductAttribute("Junji.SharedModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Junji.SharedModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

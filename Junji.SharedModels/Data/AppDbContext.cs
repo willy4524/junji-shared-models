@@ -25,6 +25,9 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<StaffRole> StaffRoles { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyContact> CompanyContacts { get; set; }
+        public DbSet<CompanyDelivery> CompanyDeliveries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -132,6 +135,22 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
             modelBuilder.Entity<StaffRole>().HasData(
                 new StaffRole { StaffId = 1, RoleId = 1 }
             );
+
+                        modelBuilder.Entity<CompanyContact>()
+                .HasOne(c => c.Company)
+                .WithMany(c => c.Contacts)
+                .HasForeignKey(c => c.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CompanyDelivery>()
+                .HasOne(d => d.Company)
+                .WithMany(c => c.Deliveries)
+                .HasForeignKey(d => d.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // 建議加索引、限制
+            modelBuilder.Entity<Company>()
+                .HasIndex(x => x.TaxId);
 
             // 其他 Fluent API 設定可視需要補充
         }
