@@ -31,7 +31,10 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
         public DbSet<Inquiry> Inquiries { get; set; }
         public DbSet<InquiryDetail> InquiryDetails { get; set; }       
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        public DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }     
+        public DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }    
+        public DbSet<StockInOrder> StockInOrders { get; set; }
+        public DbSet<StockInOrderDetail> StockInOrderDetails { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -219,7 +222,34 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            
+            modelBuilder.Entity<StockInOrder>()
+                .HasMany(s => s.Details)
+                .WithOne(d => d.StockInOrder)
+                .HasForeignKey(d => d.StockInOrderId);
+
+            modelBuilder.Entity<StockInOrder>()
+                .HasOne(s => s.Company)
+                .WithMany()
+                .HasForeignKey(s => s.CompanyId);
+
+            modelBuilder.Entity<StockInOrder>()
+                .HasOne(s => s.PurchaseOrder)
+                .WithMany()
+                .HasForeignKey(s => s.PurchaseOrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StockInOrderDetail>()
+                .HasOne(d => d.Product)
+                .WithMany()
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StockInOrderDetail>()
+                .HasOne(d => d.PurchaseOrderDetail)
+                .WithMany()
+                .HasForeignKey(d => d.PurchaseOrderDetailId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // 其他 Fluent API 設定可視需要補充
         }
     }
