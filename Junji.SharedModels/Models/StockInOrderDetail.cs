@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Junji.SharedModels.Models
 {
@@ -12,11 +13,8 @@ namespace Junji.SharedModels.Models
         public int Qty { get; set; }
         public string Unit { get; set; }
         public decimal Price { get; set; }
+        public List<StockInOrderBarcode> Barcodes { get; set; }
 
-        // 可選關聯至採購單明細
-        public int? PurchaseOrderDetailId { get; set; }
-        public PurchaseOrderDetail PurchaseOrderDetail { get; set; }
-        
         // 關聯
         public StockInOrder StockInOrder { get; set; }
         public Product Product { get; set; }
