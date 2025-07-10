@@ -13,6 +13,8 @@ namespace Junji.SharedModels.Models
         public string Unit { get; set; }
         public decimal Price { get; set; }
         public int ReceivedQty { get; set; }
+        public decimal PriceTwd { get; set; }     // 台幣單價
+        public decimal CostTwd { get; set; }      // 台幣成本（含稅運分攤）
 
         // 關聯
         public PurchaseOrder PurchaseOrder { get; set; }

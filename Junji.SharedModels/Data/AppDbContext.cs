@@ -216,6 +216,18 @@ namespace Junji.SharedModels.Data // ✅ 改成 shared 的命名空間
                 .WithMany()
                 .HasForeignKey(p => p.CompanyId);
 
+            modelBuilder.Entity<PurchaseOrder>()
+                .Property(p => p.ShippingFee)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<PurchaseOrder>()
+                .Property(p => p.CustomsDuty)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<PurchaseOrder>()
+                .Property(p => p.ExchangeRate)
+                .HasColumnType("decimal(18,4)");
+
             modelBuilder.Entity<PurchaseOrderDetail>()
                 .HasOne(d => d.Product)
                 .WithMany()

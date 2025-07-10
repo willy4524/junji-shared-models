@@ -15,6 +15,14 @@ namespace Junji.SharedModels.Models
         public string PaymentStatus { get; set; } // 付款狀態
         public decimal DepositAmount { get; set; }
         public string Remark { get; set; }
+        public decimal ShippingFee { get; set; }        // 運費
+        public bool IsImportProduct { get; set; }       // 是否進口商品
+        public string? Currency { get; set; }           // 貨幣
+        public decimal? ExchangeRate { get; set; }      // 匯率
+        public decimal CustomsDuty { get; set; }        // 關稅
+        public decimal TotalNoTaxTwd { get; set; }        // 全部商品未稅台幣
+        public decimal TotalWithShippingNoTaxTwd { get; set; } // 含運未稅
+        public decimal TotalWithShippingTaxTwd { get; set; }   // 含運含稅
         
         // 關聯
         public Company Company { get; set; }
