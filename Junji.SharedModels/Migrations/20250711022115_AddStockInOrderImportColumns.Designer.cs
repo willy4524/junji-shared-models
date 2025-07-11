@@ -4,6 +4,7 @@ using Junji.SharedModels.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Junji.SharedModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250711022115_AddStockInOrderImportColumns")]
+    partial class AddStockInOrderImportColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1001,15 +1004,6 @@ namespace Junji.SharedModels.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("TotalNoTaxTwd")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalWithShippingNoTaxTwd")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("TotalWithShippingTaxTwd")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
@@ -1049,13 +1043,7 @@ namespace Junji.SharedModels.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("CostTwd")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("PriceTwd")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")

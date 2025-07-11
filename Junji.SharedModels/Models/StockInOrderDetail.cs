@@ -13,6 +13,8 @@ namespace Junji.SharedModels.Models
         public int Qty { get; set; }
         public string Unit { get; set; }
         public decimal Price { get; set; }
+        public decimal PriceTwd { get; set; }
+        public decimal CostTwd { get; set; }
         public List<StockInOrderBarcode> Barcodes { get; set; }
 
         // 關聯

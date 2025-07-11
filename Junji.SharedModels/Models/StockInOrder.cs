@@ -15,6 +15,14 @@ namespace Junji.SharedModels.Models
         public string InvoiceNo { get; set; }        // 發票號碼
         public string Remark { get; set; }           // 備註
         public int? PurchaseOrderId { get; set; }    // 關聯的採購單Id，可為null
+        public decimal? Freight { get; set; }         // 運費
+        public decimal? Customs { get; set; }         // 關稅
+        public bool IsImport { get; set; }            // 是否進口商品
+        public string Currency { get; set; }          // 幣別
+        public decimal? ExchangeRate { get; set; }    // 匯率
+        public decimal? TotalNoTaxTwd { get; set; }
+        public decimal? TotalWithShippingNoTaxTwd { get; set; }
+        public decimal? TotalWithShippingTaxTwd { get; set; }
 
         // 關聯
         public Company Company { get; set; }
